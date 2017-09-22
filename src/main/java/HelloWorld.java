@@ -1,16 +1,10 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        print(System.out);
-    }
-
-    public static void print(PrintStream out) {
-        out.println("Hello world again!");
 
         for (SportEvent e : SportEvent.values()) {
             System.out.println(e.fullName);

@@ -21,8 +21,8 @@ public class HelloWorld {
                 System.out.println(r.results);
             }
 
-            DecathlonRankingCalculator dRes = new DecathlonRankingCalculator(res);
-            dRes.toSortedRankingBucketList();
+            DecathlonRankingCalculator dRes = new DecathlonRankingCalculator();
+            dRes.toSortedRankingBucketList(res);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

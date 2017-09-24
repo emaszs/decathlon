@@ -13,24 +13,6 @@ import java.util.HashMap;
  */
 class DecathlonRankingCalculator {
     /**
-     * A 'preliminary' list of buckets where one or more {@link AthleteResults} are represented as an {@code Integer}
-     * score. Having such a map is helpful when constructing the full ranking strings for each athlete.
-     *
-     * Initialized in the constructor by invoking the {@link #makeUniqueResultMap(ArrayList)} method on a list of
-     * {@link AthleteResults} objects.
-     */
-    private final HashMap<Integer, ArrayList<AthleteResults>> uniqueResultMap;
-
-    /**
-     * Constructor.
-     *
-     * @param athleteResultsList A list of {@link AthleteResults} in the competition.
-     */
-    DecathlonRankingCalculator(final ArrayList<AthleteResults> athleteResultsList) {
-        this.uniqueResultMap = makeUniqueResultMap(athleteResultsList);
-    }
-
-    /**
      * Produces a map where an {@code Integer} score identifies one or more athletes that share the score in the
      * competition.
      *
@@ -38,7 +20,7 @@ class DecathlonRankingCalculator {
      * @return Mapping of unique {@code Integer} scores to one or more athletes.
      */
     HashMap<Integer, ArrayList<AthleteResults>> makeUniqueResultMap
-            (final ArrayList<AthleteResults> athleteResultsList) {
+        (final ArrayList<AthleteResults> athleteResultsList) {
         HashMap<Integer, ArrayList<AthleteResults>> res = new HashMap<>();
 
         for (AthleteResults athleteResults : athleteResultsList) {
@@ -83,15 +65,22 @@ class DecathlonRankingCalculator {
     }
 
     /**
-     * Uses the {@link #uniqueResultMap} (which should've already been initialized in the constructor) to create a
-     * sorted list of {@link RankingBucket} objects.
+     * Creates a sorted list of {@link RankingBucket} objects.
      *
-     * @return A sorted list of {@link RankingBucket} objects, sorted in descending order by their score.
+     * To achieve this, the method first creates a map of unique results by invoking the
+     * {@link #makeUniqueResultMap(ArrayList)} method. One or more athletes in this map can be represented by a
+     * certain score that they share. Once these preliminary athlete lists are known, the final {@link RankingBucket}
+     * objects are created, assigned an appropriate rank in the competition and returned.
+     *
+     * @return A list of {@link RankingBucket} objects, sorted in descending order by their score.
      */
-    ArrayList<RankingBucket> toSortedRankingBucketList() {
+    ArrayList<RankingBucket> toSortedRankingBucketList(final ArrayList<AthleteResults> athleteResultsList) {
         ArrayList<RankingBucket> res = new ArrayList<>();
 
-        // Get the unique scores and sort them. This will be helpful when creating and assigning the final rankings.
+        // The same score may be shared by multiple athletes, therefore we create a map to represent these lists
+        HashMap<Integer, ArrayList<AthleteResults>> uniqueResultMap = makeUniqueResultMap(athleteResultsList);
+
+        // Get the unique score ints and sort them. This will be helpful when creating and assigning the final rankings.
         ArrayList<Integer> scoreList = new ArrayList<>(uniqueResultMap.keySet());
         scoreList.sort(Collections.reverseOrder());
 
@@ -102,6 +91,7 @@ class DecathlonRankingCalculator {
         for (Integer score : scoreList) {
             int bucketSize = uniqueResultMap.get(score).size();
 
+            // Get the ranking string that the athletes in this bucket will share.
             String ranking = makeIncrementingRankingString(rankingTableIndex, bucketSize);
             RankingBucket newBucket = new RankingBucket(ranking, uniqueResultMap.get(score));
             res.add(newBucket);

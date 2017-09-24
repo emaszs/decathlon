@@ -6,11 +6,12 @@ class DecathlonRankingCalculator {
     private final HashMap<Integer, ArrayList<AthleteResults>> uniqueResultMap;
 
 
-    DecathlonRankingCalculator(ArrayList<AthleteResults> athleteResultsList) {
+    DecathlonRankingCalculator(final ArrayList<AthleteResults> athleteResultsList) {
         this.uniqueResultMap = makeUniqueResultMap(athleteResultsList);
     }
 
-    HashMap<Integer, ArrayList<AthleteResults>> makeUniqueResultMap (ArrayList<AthleteResults> athleteResultsList) {
+    HashMap<Integer, ArrayList<AthleteResults>> makeUniqueResultMap
+            (final ArrayList<AthleteResults> athleteResultsList) {
         HashMap<Integer, ArrayList<AthleteResults>> res = new HashMap<>();
 
         for (AthleteResults athleteResults : athleteResultsList) {
@@ -26,7 +27,7 @@ class DecathlonRankingCalculator {
         return res;
     }
 
-    String makeIncrementingRankingString(int start, int length) {
+    String makeIncrementingRankingString(final int start, final int length) {
         StringBuilder res = new StringBuilder(Integer.toString(start));
         if (length == 1) {
             // Nothing else needs to be done with the string.

@@ -6,7 +6,7 @@ class AthleteResults {
     final int totalScore;
 
 
-    AthleteResults(String name, EnumMap<SportEvent, String> results) {
+    AthleteResults(final String name, final EnumMap<SportEvent, String> results) {
         this.name = name;
         this.results = results;
         this.totalScore = getTotalScore();
@@ -22,7 +22,7 @@ class AthleteResults {
     }
 
     // TODO should this be private?
-    private int getEventScore(SportEvent event) {
+    private int getEventScore(final SportEvent event) {
         switch (event) {
             case ONE_HUNDRED:
             case FOUR_HUNDRED:

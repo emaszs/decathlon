@@ -16,10 +16,13 @@ public class HelloWorld {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
-            ArrayList<Athlete> res = inp.readAthleteResults(br);
-            for (Athlete r : res) {
+            ArrayList<AthleteResults> res = inp.readAthleteResults(br);
+            for (AthleteResults r : res) {
                 System.out.println(r.results);
             }
+
+            DecathlonRankingCalculator dRes = new DecathlonRankingCalculator(res);
+            dRes.toSortedRankingBucketList();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

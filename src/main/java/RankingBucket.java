@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 class RankingBucket {
-    String ranking;
-    ArrayList<AthleteResults> athleteResultsList;
+    final String ranking;
+    final ArrayList<AthleteResults> athleteResultsList;
 
     RankingBucket(String ranking, ArrayList<AthleteResults> athleteResultsList) {
         this.ranking = ranking;

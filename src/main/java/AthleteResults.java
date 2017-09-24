@@ -1,9 +1,9 @@
 import java.util.EnumMap;
 
-public class AthleteResults {
-    public final String name;
-    public final EnumMap<SportEvent, String> results;
-    public final int totalScore;
+class AthleteResults {
+    final String name;
+    final EnumMap<SportEvent, String> results;
+    final int totalScore;
 
 
     AthleteResults(String name, EnumMap<SportEvent, String> results) {
@@ -47,7 +47,7 @@ public class AthleteResults {
                 double meters = Double.parseDouble(results.get(SportEvent.LONG_JUMP));
                 return (int) (event.a_val * Math.pow((meters - event.b_val), event.c_val));
         }
-        return -1;
+        return 0;
     }
 
 }

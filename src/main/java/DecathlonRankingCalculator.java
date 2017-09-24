@@ -3,21 +3,42 @@ import java.util.Collections;
 import java.util.HashMap;
 
 class DecathlonRankingCalculator {
-    private HashMap<Integer, ArrayList<AthleteResults>> uniqueResultMap;
+    private final HashMap<Integer, ArrayList<AthleteResults>> uniqueResultMap;
 
 
     DecathlonRankingCalculator(ArrayList<AthleteResults> athleteResultsList) {
-        this.uniqueResultMap = new HashMap<>();
+        this.uniqueResultMap = makeUniqueResultMap(athleteResultsList);
+    }
+
+    HashMap<Integer, ArrayList<AthleteResults>> makeUniqueResultMap (ArrayList<AthleteResults> athleteResultsList) {
+        HashMap<Integer, ArrayList<AthleteResults>> res = new HashMap<>();
 
         for (AthleteResults athleteResults : athleteResultsList) {
-            if (uniqueResultMap.get(athleteResults.totalScore) == null) {
-                ArrayList<AthleteResults> newBucket = new ArrayList<>();
-                newBucket.add(athleteResults);
-                uniqueResultMap.put(athleteResults.totalScore, newBucket);
+            if (res.get(athleteResults.totalScore) == null) {
+                ArrayList<AthleteResults> newSharedScoreList = new ArrayList<>();
+                newSharedScoreList.add(athleteResults);
+                res.put(athleteResults.totalScore, newSharedScoreList);
             } else {
-                ArrayList<AthleteResults> bucket = uniqueResultMap.get(athleteResults.totalScore);
-                bucket.add(athleteResults);
+                ArrayList<AthleteResults> sharedScoreList = res.get(athleteResults.totalScore);
+                sharedScoreList.add(athleteResults);
             }
+        }
+        return res;
+    }
+
+    String makeIncrementingRankingString(int start, int length) {
+        StringBuilder res = new StringBuilder(Integer.toString(start));
+        if (length == 1) {
+            // Nothing else needs to be done with the string.
+            return res.toString();
+        } else {
+            // TODO make comment formatting consistent!
+            /* Build the string, starting from the a certain int, incrementing the int by 1 for the specified length
+            * and separating each int with a dash ("-")*/
+            for (int i = 1; i < length; i++) {
+                res.append("-").append(Integer.toString(start + i));
+            }
+            return res.toString();
         }
     }
 
@@ -28,30 +49,19 @@ class DecathlonRankingCalculator {
         ArrayList<Integer> scoreList = new ArrayList<>(uniqueResultMap.keySet());
         scoreList.sort(Collections.reverseOrder());
 
-        // Represents the position of the athlete in the final table regardless of score collisions.
-        Integer finalTableIndex = 1;
+        /* (Indirectly) represents the position of the athlete in the final table regardless of score collisions.
+        * Helps when building the final ranking string. */
+        Integer rankingTableIndex = 1;
 
         for (Integer score : scoreList) {
             int bucketSize = uniqueResultMap.get(score).size();
-            StringBuilder ranking = new StringBuilder(finalTableIndex.toString());
-            if (bucketSize == 1) {
-                // In case the score is unique to a single athlete, simply assign the ranking and move on.
-                RankingBucket newBucket = new RankingBucket(ranking.toString(), uniqueResultMap.get(score));
-                res.add(newBucket);
-            } else {
-                /* If more than one athlete shares the same score, build the string representing the shared ranking
-                between athleteResultsList, e.g. '3-4' if the third highest score is shared by two athleteResultsList. */
-                for (int i = 1; i < bucketSize; i++) {
-                    ranking.append("-").append(Integer.toString(finalTableIndex + i));
-                }
-                RankingBucket newBucket = new RankingBucket(ranking.toString(), uniqueResultMap.get(score));
-                res.add(newBucket);
-            }
-            finalTableIndex += bucketSize;
-        }
 
+            String ranking = makeIncrementingRankingString(rankingTableIndex, bucketSize);
+            RankingBucket newBucket = new RankingBucket(ranking, uniqueResultMap.get(score));
+            res.add(newBucket);
+
+            rankingTableIndex += bucketSize;
+        }
         return res;
     }
-
-
 }

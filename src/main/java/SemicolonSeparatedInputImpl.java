@@ -14,8 +14,7 @@ public class SemicolonSeparatedInputImpl implements Input {
 
         SportEvent[] sportEvents = SportEvent.values();
 
-        // TODO validate input according to each enum value with regex.
-        // TODO Also maybe add a check for zeroes in case an event wasn't finished?
+        // TODO Maybe add a check for zeroes in case an event wasn't finished?
         try {
             String line;
             while ((line = reader.readLine()) != null){

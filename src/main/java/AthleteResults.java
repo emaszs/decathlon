@@ -6,11 +6,7 @@ import java.util.EnumMap;
  * for his/hers performance in all of the events and therefore can be used for comparison between different athletes
  * overall.
  */
-class AthleteResults {
-    /**
-     * Athlete's name
-     */
-    final String name;
+class AthleteResults extends RankableItem {
 
     /**
      * A map for storing athlete's performance in each of the sport events.
@@ -20,34 +16,27 @@ class AthleteResults {
     final EnumMap<SportEvent, String> results;
 
     /**
-     * Athlete's total score in the competition as calculated by the {@link #getEventScore(SportEvent)} method.
-     * This value is set in the constructor.
-     */
-    final int totalScore;
-
-    /**
      * Constructor.
      *
      * @param name Athlete's name
      * @param results A map containing athlete's performance in each of the 10 sport events.
      */
     AthleteResults(final String name, final EnumMap<SportEvent, String> results) {
-        this.name = name;
+        super(name, calculateTotalScore(results));
         this.results = results;
-        this.totalScore = getTotalScore();
     }
 
     /**
-     * Returns athlete's total score in the competition by invoking the {@link #getEventScore(SportEvent)}
+     * Returns athlete's total score in the competition by invoking the {@link #calculateEventScore(SportEvent)}
      * method for each {@link SportEvent} and summing the result.
      *
      * @return Athlete's total score based on his performance.
-     * @see #getEventScore(SportEvent)
+     * @see #calculateEventScore(SportEvent)
      */
-    private int getTotalScore() {
+    static int calculateTotalScore(final EnumMap<SportEvent, String> results) {
         int res = 0;
         for (SportEvent event : SportEvent.values()) {
-            res += getEventScore(event);
+            res += calculateEventScore(event, results);
         }
         return res;
     }
@@ -62,7 +51,7 @@ class AthleteResults {
      * It is assumed that the time present in the athlete's performance map {@link #results} will be given only in
      * these two formats:
      * - m.s.SS (minutes, seconds, hundredths of a second separated by a dot)
-     * - s.SS (seconds, hundredhts of a second separated by a dot)
+     * - s.SS (seconds, hundredths of a second separated by a dot)
      *
      * It is also assumed that the distance present in the athlete's performance map {@link #results} will be given in a
      * single format:
@@ -71,7 +60,7 @@ class AthleteResults {
      * @param event Event for which to calculate the score
      * @return Integer athlete's score for a specific event
      */
-    private int getEventScore(final SportEvent event) {
+    private static int calculateEventScore(final SportEvent event, final EnumMap<SportEvent, String> results) {
         switch (event) {
             case ONE_HUNDRED:
             case FOUR_HUNDRED:
@@ -93,10 +82,13 @@ class AthleteResults {
             case DISCUS:
             case POLE:
             case JAVELIN:
-                double meters = Double.parseDouble(results.get(SportEvent.LONG_JUMP));
+                double meters = Double.parseDouble(results.get(event));
                 return (int) (event.a_val * Math.pow((meters - event.b_val), event.c_val));
         }
         return 0;
     }
 
+    int calculateEventScore(final SportEvent event) {
+        return calculateEventScore(event, results);
+    }
 }

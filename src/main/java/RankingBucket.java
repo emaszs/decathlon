@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-class RankingBucket {
+class RankingBucket<T> {
     final String ranking;
-    final ArrayList<AthleteResults> athleteResultsList;
+    final ArrayList<T> resultsList;
 
-    RankingBucket(String ranking, ArrayList<AthleteResults> athleteResultsList) {
+    RankingBucket(String ranking, ArrayList<T> resultsList) {
         this.ranking = ranking;
-        this.athleteResultsList = athleteResultsList;
+        this.resultsList = resultsList;
     }
 
 }

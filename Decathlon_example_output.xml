@@ -17,8 +17,23 @@
     <total_score>3165</total_score>
   </athlete>
   <athlete>
-    <name>Jaana Lind</name>
-    <ranking>2</ranking>
+    <name>Jaana Lind1</name>
+    <ranking>2-3</ranking>
+    <one_hundred>13.75</one_hundred>
+    <long_jump>4.84</long_jump>
+    <shot_put>10.12</shot_put>
+    <high_jump>1.50</high_jump>
+    <four_hundred>68.44</four_hundred>
+    <hurdles>19.18</hurdles>
+    <discus>30.85</discus>
+    <pole>2.80</pole>
+    <javelin>33.88</javelin>
+    <fifteen_hundred>6.22.75</fifteen_hundred>
+    <total_score>2444</total_score>
+  </athlete>
+  <athlete>
+    <name>Jaana Lind2</name>
+    <ranking>2-3</ranking>
     <one_hundred>13.75</one_hundred>
     <long_jump>4.84</long_jump>
     <shot_put>10.12</shot_put>
@@ -33,7 +48,7 @@
   </athlete>
   <athlete>
     <name>Anti Loop</name>
-    <ranking>3</ranking>
+    <ranking>4</ranking>
     <one_hundred>13.43</one_hundred>
     <long_jump>4.35</long_jump>
     <shot_put>8.64</shot_put>
@@ -48,7 +63,7 @@
   </athlete>
   <athlete>
     <name>Beata Kana</name>
-    <ranking>4</ranking>
+    <ranking>5</ranking>
     <one_hundred>13.04</one_hundred>
     <long_jump>4.53</long_jump>
     <shot_put>7.79</shot_put>

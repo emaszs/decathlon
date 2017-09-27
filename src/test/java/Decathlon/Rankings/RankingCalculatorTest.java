@@ -49,7 +49,7 @@ public class RankingCalculatorTest {
     }
 
     @Test
-    public void makeSortedRankingBucketList() {
+    public void makeSortedRankingBucketList_scoreCollision_returnedBucketsAreCorrect() {
         ArrayList<RankableItem> list = new ArrayList<>();
         list.add(new RankableItem("item1", 100));
         list.add(new RankableItem("item2", 200));

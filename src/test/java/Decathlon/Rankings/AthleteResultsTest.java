@@ -28,7 +28,7 @@ public class AthleteResultsTest {
     }
 
     @Test
-    public void getTotalScore() {
+    public void getTotalScore_returnsCorrectResult() {
         testAthRes = createTestAthleteResults();
 
         assertEquals(3165, AthleteResults.calculateTotalScore(testAthRes.results));

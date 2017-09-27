@@ -1,3 +1,5 @@
+package Decathlon.Rankings;
+
 import org.junit.Test;
 
 import java.util.EnumMap;
@@ -7,10 +9,10 @@ import static org.junit.Assert.*;
 public class AthleteResultsTest {
     private AthleteResults testAthRes = createTestAthleteResults();
 
-    private AthleteResults createTestAthleteResults() {
+    public static AthleteResults createTestAthleteResults() {
         String name = "Siim Susi";
 
-        EnumMap<SportEvent, String> resultsEnum = new EnumMap<SportEvent, String>(SportEvent.class);
+        EnumMap<SportEvent, String> resultsEnum = new EnumMap<>(SportEvent.class);
         resultsEnum.put(SportEvent.ONE_HUNDRED, "12.61");
         resultsEnum.put(SportEvent.LONG_JUMP, "5.00");
         resultsEnum.put(SportEvent.SHOT_PUT, "9.22");

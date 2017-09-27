@@ -1,4 +1,7 @@
+package Decathlon.Rankings;
+
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -37,20 +40,31 @@ public class RankingCalculatorTest {
 
     @Test
     public void makeIncrementingRankingString_singleNumber_returnedStringIsCorrect() {
-        RankingCalculator<RankableItem> rankCalc = new RankingCalculator<>();
-
         assertEquals("11", RankingCalculator.makeIncrementingRankingString(11, 1));
     }
 
     @Test
     public void makeIncrementingRankingString_multipleNumbers_returnedStringIsCorrect() {
-        RankingCalculator<RankableItem> rankCalc = new RankingCalculator<>();
-
         assertEquals("2-3-4-5", RankingCalculator.makeIncrementingRankingString(2, 4));
     }
 
     @Test
     public void makeSortedRankingBucketList() {
+        ArrayList<RankableItem> list = new ArrayList<>();
+        list.add(new RankableItem("item1", 100));
+        list.add(new RankableItem("item2", 200));
+        list.add(new RankableItem("item3", 200));
+        list.add(new RankableItem("item4", 400));
+
+        RankingCalculator<RankableItem> rankCalc = new RankingCalculator<>();
+
+        ArrayList<RankingBucket<RankableItem>> res = rankCalc.makeSortedRankingBucketList(list);
+
+        assertEquals("1", res.get(0).ranking);
+        assertEquals("2-3", res.get(1).ranking);
+        assertEquals("4", res.get(2).ranking);
+
+        assertEquals("item4", res.get(0).items.get(0).name);
     }
 
 }

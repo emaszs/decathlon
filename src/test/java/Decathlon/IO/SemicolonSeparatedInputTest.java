@@ -1,3 +1,7 @@
+package Decathlon.IO;
+
+import Decathlon.Rankings.AthleteResults;
+import Decathlon.Rankings.SportEvent;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -11,35 +15,35 @@ public class SemicolonSeparatedInputTest {
     @Test
     public void processLine_athleteGiven_returnsCorrectResults() {
         String line = "Siim Susi;12.61;5.00;9.22;1.50;60.39;16.43;21.60;2.60;35.81;5.25.72 ";
-        SemicolonSeparatedInputImpl inp = new SemicolonSeparatedInputImpl();
+        SemicolonSeparatedInput inp = new SemicolonSeparatedInput();
         AthleteResults res = inp.processLine(line);
 
         assertEquals("Siim Susi", res.name);
         assertEquals(res.results.get(SportEvent.ONE_HUNDRED), "12.61");
         assertEquals(res.results.get(SportEvent.LONG_JUMP), "5.00");
-        assertEquals(res.results.get(SportEvent.FIFTEEN_HUNDRED), "5.25.72 ");
+        assertEquals(res.results.get(SportEvent.FIFTEEN_HUNDRED), "5.25.72");
     }
 
     @Test
-    public void readAthleteResults_singleAthleteGiven_returnsCorrectResults() {
+    public void readAthleteResults_singleAthleteGiven_returnsCorrectResults() throws Exception {
         Reader reader = new StringReader("Siim Susi;12.61;5.00;9.22;1.50;60.39;16.43;21.60;2.60;35.81;5.25.72 \n");
         BufferedReader bufReader = new BufferedReader(reader);
-        Input inp = new SemicolonSeparatedInputImpl();
+        Input inp = new SemicolonSeparatedInput();
 
         AthleteResults res = inp.readAthleteResults(bufReader).get(0);
         assertEquals("Siim Susi", res.name);
         assertEquals(res.results.get(SportEvent.ONE_HUNDRED), "12.61");
         assertEquals(res.results.get(SportEvent.LONG_JUMP), "5.00");
-        assertEquals(res.results.get(SportEvent.FIFTEEN_HUNDRED), "5.25.72 ");
+        assertEquals(res.results.get(SportEvent.FIFTEEN_HUNDRED), "5.25.72");
     }
 
     @Test
-    public void readAthleteResults_multipleAthletesGiven_returnsCorrectResults() {
+    public void readAthleteResults_multipleAthletesGiven_returnsCorrectResults() throws Exception {
         String testInput = "Siim Susi;12.61;5.00;9.22;1.50;60.39;16.43;21.60;2.60;35.81;5.25.72 \n";
         testInput += "Beata Kana;13.04;4.53;7.79;1.55;64.72;18.74;24.20;2.40;28.20;6.50.76 \n";
         Reader reader = new StringReader(testInput);
         BufferedReader bufReader = new BufferedReader(reader);
-        Input inp = new SemicolonSeparatedInputImpl();
+        Input inp = new SemicolonSeparatedInput();
 
         ArrayList<AthleteResults> res = inp.readAthleteResults(bufReader);
 

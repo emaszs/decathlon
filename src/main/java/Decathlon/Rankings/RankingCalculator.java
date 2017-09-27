@@ -1,3 +1,5 @@
+package Decathlon.Rankings;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,14 +13,14 @@ import java.util.HashMap;
  * {@code "3-4-5"}, for example. In this case, a bucket representing a certain score will contain the items that
  * share such a score and an appropriate ranking string.
  */
-class RankingCalculator<T extends RankableItem> {
+public class RankingCalculator<T extends RankableItem> {
     /**
      * Produces a map where an {@code Integer} score identifies one or more items that share the score in a competition.
      *
      * @param resultsList A list of items in the competition.
      * @return Mapping of unique {@code Integer} scores to one or more athletes.
      */
-    HashMap<Integer, ArrayList<T>> makeUniqueResultMap(final ArrayList<T> resultsList) {
+    public HashMap<Integer, ArrayList<T>> makeUniqueResultMap(final ArrayList<T> resultsList) {
         HashMap<Integer, ArrayList<T>> res = new HashMap<>();
 
         for (T results : resultsList) {
@@ -46,15 +48,14 @@ class RankingCalculator<T extends RankableItem> {
      * @param length How many numbers the resulting string will contain.
      * @return A string of incrementing ints, separated by dashes ("-"), such as {@code "2-3-4"}.
      */
-    static String makeIncrementingRankingString(final int start, final int length) {
+    public static String makeIncrementingRankingString(final int start, final int length) {
         StringBuilder res = new StringBuilder(Integer.toString(start));
         if (length == 1) {
             // Nothing else needs to be done with the string.
             return res.toString();
         } else {
-            // TODO make comment formatting consistent!
             /* Build the string, starting from the a certain int, incrementing the int by 1 for the specified length
-            * and separating each int with a dash ("-")*/
+            and separating each int with a dash ("-") */
             for (int i = 1; i < length; i++) {
                 res.append("-").append(Integer.toString(start + i));
             }
@@ -72,7 +73,7 @@ class RankingCalculator<T extends RankableItem> {
      *
      * @return A list of {@link RankingBucket} objects, sorted in descending order by their score.
      */
-    ArrayList<RankingBucket<T>> makeSortedRankingBucketList(final ArrayList<T> athleteResultsList) {
+    public ArrayList<RankingBucket<T>> makeSortedRankingBucketList(final ArrayList<T> athleteResultsList) {
         ArrayList<RankingBucket<T>> res = new ArrayList<>();
 
         // The same score may be shared by multiple athletes, therefore we create a map to represent these lists
@@ -80,10 +81,10 @@ class RankingCalculator<T extends RankableItem> {
 
         // Get the unique score ints and sort them. This will be helpful when creating and assigning the final rankings.
         ArrayList<Integer> scoreList = new ArrayList<>(uniqueResultMap.keySet());
-        scoreList.sort(Collections.reverseOrder());
+        Collections.sort(scoreList, Collections.<Integer>reverseOrder());
 
         /* (Indirectly) represents the position of the athlete in the final table regardless of score collisions.
-        * Helps when building the final ranking string. */
+        Helps when building the final ranking string. */
         Integer rankingTableIndex = 1;
 
         for (Integer score : scoreList) {
@@ -91,7 +92,7 @@ class RankingCalculator<T extends RankableItem> {
 
             // Get the ranking string that the athletes in this bucket will share.
             String ranking = makeIncrementingRankingString(rankingTableIndex, bucketSize);
-            RankingBucket newBucket = new RankingBucket(ranking, uniqueResultMap.get(score));
+            RankingBucket<T> newBucket = new RankingBucket<>(ranking, uniqueResultMap.get(score));
             res.add(newBucket);
 
             rankingTableIndex += bucketSize;

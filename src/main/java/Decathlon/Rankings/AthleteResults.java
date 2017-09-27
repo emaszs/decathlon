@@ -1,3 +1,5 @@
+package Decathlon.Rankings;
+
 import java.util.EnumMap;
 
 /**
@@ -6,14 +8,14 @@ import java.util.EnumMap;
  * for his/hers performance in all of the events and therefore can be used for comparison between different athletes
  * overall.
  */
-class AthleteResults extends RankableItem {
+public class AthleteResults extends RankableItem {
 
     /**
      * A map for storing athlete's performance in each of the sport events.
      * It is assumed that the athlete finished all of the 10 different events, therefore the number of entries in the
      * map should always be equal to 10, one for each value in the {@link SportEvent} enum.
      */
-    final EnumMap<SportEvent, String> results;
+    final public EnumMap<SportEvent, String> results;
 
     /**
      * Constructor.
@@ -21,7 +23,7 @@ class AthleteResults extends RankableItem {
      * @param name Athlete's name
      * @param results A map containing athlete's performance in each of the 10 sport events.
      */
-    AthleteResults(final String name, final EnumMap<SportEvent, String> results) {
+    public AthleteResults(final String name, final EnumMap<SportEvent, String> results) {
         super(name, calculateTotalScore(results));
         this.results = results;
     }
@@ -33,12 +35,16 @@ class AthleteResults extends RankableItem {
      * @return Athlete's total score based on his performance.
      * @see #calculateEventScore(SportEvent)
      */
-    static int calculateTotalScore(final EnumMap<SportEvent, String> results) {
+    public static int calculateTotalScore(final EnumMap<SportEvent, String> results) {
         int res = 0;
         for (SportEvent event : SportEvent.values()) {
             res += calculateEventScore(event, results);
         }
         return res;
+    }
+
+    public int calculateTotalScore() {
+        return calculateTotalScore(results);
     }
 
     /**
@@ -88,7 +94,7 @@ class AthleteResults extends RankableItem {
         return 0;
     }
 
-    int calculateEventScore(final SportEvent event) {
+    public int calculateEventScore(final SportEvent event) {
         return calculateEventScore(event, results);
     }
 }

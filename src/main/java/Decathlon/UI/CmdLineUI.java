@@ -47,6 +47,11 @@ public class CmdLineUI {
         return new PrintWriter(path);
     }
 
+    /**
+     * Command-line interface.
+     *
+     * @param args Input and Output file paths can be provided as the first and second String arg.
+     */
     public static void main(String[] args) {
         Reader reader = null;
         Writer writer = null;

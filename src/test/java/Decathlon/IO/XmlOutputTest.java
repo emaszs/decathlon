@@ -19,7 +19,7 @@ public class XmlOutputTest {
 
     @Test
     public void writeXmlBeginning() throws Exception {
-        output.writeXmlBeginning(writer);
+        XmlOutput.writeXmlBeginning(writer);
 
         String expected = "<?xml version=\"1.0\"?>\n";
         expected += "<?xml-stylesheet type=\"text/xsl\" href=\"decathlon.xsl\"?>\n";
@@ -29,7 +29,7 @@ public class XmlOutputTest {
 
     @Test
     public void writeXmlEnd() throws Exception {
-        output.writeXmlEnd(writer);
+        XmlOutput.writeXmlEnd(writer);
 
         String expected = "</decathlon>\n";
         assertEquals(expected, stream.toString());

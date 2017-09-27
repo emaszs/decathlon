@@ -31,7 +31,7 @@ public class AthleteResultsTest {
     public void getTotalScore() {
         testAthRes = createTestAthleteResults();
 
-        assertEquals(3165, testAthRes.calculateTotalScore(testAthRes.results));
+        assertEquals(3165, AthleteResults.calculateTotalScore(testAthRes.results));
     }
 
     @Test

@@ -66,5 +66,4 @@ public class RankingCalculatorTest {
 
         assertEquals("item4", res.get(0).items.get(0).name);
     }
-
 }
